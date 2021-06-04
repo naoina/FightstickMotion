@@ -1398,7 +1398,6 @@ function updateStatus() {
 
         if (d > 0) input.push(d);
 
-        console.log(input);
         displayInputList(input);
       }
     }
