@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+	<meta name="author" content="xxdocobxx">
+	<title>Fightstick Motion</title>
+	<link rel="shortcut icon" type="image/png" href="assets/favicon-32x32.png">
+	<link rel="stylesheet" type="text/css" href="assets/fightstick.css" />
+</head>
+<body style="margin:0px;">
+
+	<span class="tooltip"><div id="assignbuttontooltip" class="tooltiptext tooltiptextassignbutton"></div>
+		<div id="container" class"container">
+			<div id="gamepad0" class="gamepad-background">
+				<div id="gamepad-background-image" class="gamepad-disconnected"></div>
+				<div id="gamepad-area" class="gamepad-area">
+					<div id="gamepad-area-background" class="gamepad-area-background"></div>
+					<div id="stick-area" class="stick-area">
+						<div id="stick" class="stick"></div>
+						<div id="stick-up" class="stick-block stick-up"></div>
+						<div id="stick-down" class="stick-block stick-down"></div>
+						<div id="stick-left" class="stick-block stick-left"></div>
+						<div id="stick-right" class="stick-block stick-right"></div>
+					</div>
+					<div id="button-area" class="button-area">
+						<!-- buttons will be added to here -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</span>
+
+	<div id="inputlist" class="inputlist hide">
+	</div>
+
+	<div id="inputarea" class="hide">
+		<fieldset id="titlefield">
+			<div>
+				<span class="tooltip">
+					<div class="tooltiptext tooltiptexttitle">https://obsproject.com/forum/resources/display-fightstick-motions.344/</div>
+					<a href="https://obsproject.com/forum/resources/display-fightstick-motions.344/" target="_blank" class="titletext">Fightstick Motion</a>
+				</span>
+			</div>
+		</fieldset>
+
+		<fieldset id="inputareafield" class="invisiblefieldset">
+		<ul class="tabs">
+			<div id="tab-topline" class="tab-topline"></div>
+			<li>
+				<input type="radio" checked name="tabs" id="tab1">
+				<label for="tab1">General</label>
+				<div id="tab-content1" class="tab-content">
+
+					<div id="savelink">
+						<label>The URL below will reproduce current setup:<br>
+							<span class="tooltip"><div id="savelinktooltip" class="tooltiptext tooltiptextlink"></div>
+								<input type="text" id="savelinktext" value="" readonly style="width:500px;">
+							</span>
+						</label>
+						<button onclick="saveSetting('MySetting.html');">Save As MySetting.html</button>
+					</div>
+
+					<div id="customlink">
+						<label>The URL below will show the graphic part only:<br>
+							<span class="tooltip"><div id="customlinktooltip" class="tooltiptext tooltiptextlink"></div>
+								<input type="text" id="customlinktext" value="" readonly style="width:500px;">
+							</span>
+						</label>
+						<button class="copybtn" onclick="copyLink('customlinktext');">Copy</button>
+						<button onclick="window.open(getValueById('customlinktext'));">Open in new window</button>
+					</div>
+
+					<div id="obsbrowserlink" class="hide">
+						<label>Copy the URL below and paste to the OBS Browser Source configuration:<br>
+							<span class="tooltip"><div id="obslinktooltip" class="tooltiptext tooltiptextlink"></div>
+								<input type="text" id="obsbrowserlinktext" value="" readonly style="width:500px;">
+							</span>
+						</label>
+						<button class="copybtn" onclick="copyLink('obsbrowserlinktext');">Copy</button>
+					</div>
+
+					<div id="scale">
+						<label>Scale: <input type="number" id="scalevalue" value="1.0" step="0.1" min="0.1" max="10.0" class="inputnumber" onchange="checkInputNumber3(this); updateScale(this.value);"></label>
+					</div>
+
+					<div id="bgopacity">
+						<label>Background Opacity: <input type="number" id="bgopacityvalue" value="1.0" step="0.1" min="0.0" max="1.0" class="inputnumber" onchange="checkInputNumber3(this); updateBgOpacity(this.value);"></label>
+					</div>
+
+				</div>
+			</li>
+			<li>
+				<input type="radio" name="tabs" id="tab2">
+				<label for="tab2">User Specific</label>
+				<div id="tab-content2" class="tab-content">
+
+					<div id="userspecific">
+						<input type="checkbox" id="userspecifictoggle" class="checkboxbutton" onclick="toggleClassNameById('userspecificdropdown', 'dropdownopen', this.checked); updateLink();"><label class="checkboxlabel" for="userspecifictoggle">User Specific</label>
+						<span>( For who has issue that there is no response on stick(d-pad) motions.</span>
+						<span class="tooltip"><div class="tooltiptext tooltiptextlink">https://obsproject.com/forum/resources/display-fightstick-motions.344/update?update=858</div>
+						<a href="https://obsproject.com/forum/resources/display-fightstick-motions.344/update?update=858" target="_blank">Click here for more information.</a>
+						</span>)
+						<div id="userspecificdropdown" class="dropdown">
+							<form id="userspecificform" onchange="updateLink();">
+							<fieldset id="userspecificfield">
+								<legend>Stick</legend>
+								<div class="tooltip"><div class="tooltiptext tooltiptextuserspecific">"Value" is rounded to 2 decimal places.</div>
+									<span class="userspecificname">Neutral:</span>Axis: <input type="number" id="userspecifican" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvn" class="inputnumbervalue"><br style="clear:both">
+									<span class="userspecificname">Up:</span>Axis: <input type="number" id="userspecificau" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvu" class="inputnumbervalue"> Assign to button: <input type="number" id="userspecificbu" class="inputnumbervalue" min="1"><br style="clear:both">
+									<span class="userspecificname">Down:</span>Axis: <input type="number" id="userspecificad" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvd" class="inputnumbervalue"> Assign to button: <input type="number" id="userspecificbd" class="inputnumbervalue" min="1"><br style="clear:both">
+									<span class="userspecificname">Left:</span>Axis: <input type="number" id="userspecifical" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvl" class="inputnumbervalue"> Assign to button: <input type="number" id="userspecificbl" class="inputnumbervalue" min="1"><br style="clear:both">
+									<span class="userspecificname">Right:</span>Axis: <input type="number" id="userspecificar" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvr" class="inputnumbervalue"> Assign to button: <input type="number" id="userspecificbr" class="inputnumbervalue" min="1"><br style="clear:both">
+									<span class="userspecificname">Up-Left:</span>Axis: <input type="number" id="userspecificaul" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvul" class="inputnumbervalue"><br style="clear:both">
+									<span class="userspecificname">Down-Left:</span>Axis: <input type="number" id="userspecificadl" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvdl" class="inputnumbervalue"><br style="clear:both">
+									<span class="userspecificname">Up-Right:</span>Axis: <input type="number" id="userspecificaur" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvur" class="inputnumbervalue"><br style="clear:both">
+									<span class="userspecificname">Down-Right:</span>Axis: <input type="number" id="userspecificadr" class="inputnumbervalue" min="0" max="99" step="1"> Value: <input type="number" id="userspecificvdr" class="inputnumbervalue"><br style="clear:both">
+								</div>
+							</fieldset>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</li>
+			<li>
+				<input type="radio" name="tabs" id="tab3">
+				<label for="tab3">Custom Layout</label>
+				<div id="tab-content3" class="tab-content">
+
+					<div id="customlayout">
+						<input type="checkbox" id="customlayouttoggle" class="checkboxbutton" onchange="enableCustomLayout(this.checked);"><label class="checkboxlabel" for="customlayouttoggle">Custom Layout</label>
+						<div id="customlayoutdropdown" class="dropdown">
+							<fieldset id="customlayoutfield">
+								<legend>Customize Appearance</legend>
+								<button id="customlayoutopenbutton" onclick="getElementById('customlayoutopen').click();">Open File</button>
+								<input type="file" id="customlayoutopen" class="hide" accept=".sav" onchange="getElementById('customlayoutfilename').value = this.files[0].name; updateLink(); loadLayout(this.files[0]); this.value = '';">
+								<br>
+								<div class="tooltip"><span id="tooltiptextsavefile" class="tooltiptext tooltiptextsavefile">Copy the saved file to the "layout" folder.</span>
+									<label>
+										<span class="customlayoutfilenamelabel">Layout Name:</span>
+										<span class="inputfilenamepath">layout/</span><input type="text" id="customlayoutfilename" class="inputfilename" value="preset" spellcheck="false" placeholder="Enter file name..." oninput="updateLayoutName();" onchange="updateLayoutName();">
+									</label>
+									<button id="customlayoutsavebutton" onclick="saveLayout('layout.sav');">Save as layout.sav</button>
+								</div>
+								<fieldset>
+									<legend>Input History Mode</legend>
+									<input type="checkbox" id="inputhistorytoggle" class="checkboxbutton" onchange="updateInputHistoryToggle();">
+									<label class="checkboxlabel" for="inputhistorytoggle">Input History Mode</label>
+									<fieldset id="inputhistoryfieldset" class="invisiblefieldset">
+										<input type="radio" name="inputhistorydirectionset" id="inputhistoryvertical" value="0" class="radiobutton" checked onchange="updateInputHistoryToggle();">
+										<label class="radiolabel" for="inputhistoryvertical">Vertical</label>
+										<input type="radio" name="inputhistorydirectionset" id="inputhistoryhorizontalup" value="2" class="radiobutton" onchange="updateInputHistoryToggle();">
+										<label class="radiolabel" for="inputhistoryhorizontalup">Horizontal(Up)</label>
+										<input type="radio" name="inputhistorydirectionset" id="inputhistoryhorizontal" value="1" class="radiobutton" onchange="updateInputHistoryToggle();">
+										<label class="radiolabel" for="inputhistoryhorizontal">Horizontal(Down)</label>
+										<label>Count: <input type="number" id="inputhistorycount" value="20" step="1" min="1" max="50" class="inputnumber" oninput="formatInputNumber(this); updateInputHistoryToggle();" onchange="updateInputHistoryToggle();"></label>
+										<label>Game:
+											<select id="inputhistorygame" onchange="updateInputHistoryToggle();">
+												<option value="default" selected>Default</option>
+												<option value="tekken">Tekken</option>
+											</select>
+										</label>
+										<fieldset id="inputhistorytekkenfieldset" class="invisiblefieldset">
+											<label>Button mapping: Button#:
+												<select id="inputhistorytekkenbtn" onchange="updateInputHistoryTekkenBtn();">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+												</select>
+											</label>
+											<label>To:
+												<select id="inputhistorytekkenbtnmapto" onchange="updateInputHistoryTekkenBtnMapTo();">
+													<option value="0">Off</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="1+2">1+2</option>
+													<option value="1+3">1+3</option>
+													<option value="1+4">1+4</option>
+													<option value="2+3">2+3</option>
+													<option value="2+4">2+4</option>
+													<option value="3+4">3+4</option>
+													<option value="1+2+3">1+2+3</option>
+													<option value="1+2+4">1+2+4</option>
+													<option value="1+3+4">1+3+4</option>
+													<option value="2+3+4">2+3+4</option>
+													<option value="1+2+3+4">1+2+3+4</option>
+												</select>
+											</label>
+										</fieldset>
+									</fieldset>
+								</fieldset>
+								<fieldset id="stickbuttonconfig" class="invisiblefieldset">
+									<fieldset>
+										<legend>Background Config</legend>
+										<input type="checkbox" id="custombackgroundshow" class="checkboxbutton" checked onchange="enableBackgroundValue();"><label class="checkboxlabel" for="custombackgroundshow">Show Background</label>
+										<label>Width: <input type="number" id="custombackgroundw" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setBackgroundValue();"></label>
+										<label>Height: <input type="number" id="custombackgroundh" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setBackgroundValue();"></label>
+										<br>
+										<div class="tooltip"><div id="tooltiptextimagefile" class="tooltiptext tooltiptextimagefile">Image files must be placed under the "layout" folder.</div>
+											<label><span class="buttonimagelabel">Image:</span><span id="inputfilenamepathbackgroundimg" class="inputfilenamepath">layout/</span><input type="text" id="custombackgroundimg" class="inputfilename" spellcheck="false" placeholder="Leave blank to use the default file." onchange="setBackgroundValue();"></label>
+											<button id="custombackgroundopenbutton" onclick="getElementById('custombackgroundopen').click();">Choose File</button>
+											<input type="file" id="custombackgroundopen" class="hide" accept="image/*" onchange="setValueById('custombackgroundimg', this.files[0].name); this.value = ''; setBackgroundValue();">
+										</div>
+									</fieldset>
+									<fieldset>
+										<legend>Stick Config</legend>
+										<input type="checkbox" id="customshowstick" class="checkboxbutton" checked onchange="showStickBlock(this.checked);"><label class="checkboxlabel" for="customshowstick">Show Stick</label>
+										<label>X: <input type="number" id="customstickx" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="-20" oninput="setStickValue();" onchange="checkInputNumber2(this); setStickValue();"></label>
+										<label>Y: <input type="number" id="customsticky" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="0" oninput="setStickValue();" onchange="checkInputNumber2(this); setStickValue();"></label>
+										<label>Width: <input type="number" id="customstickw" class="inputnumberbuttonvalue" min="0" max="1000" step="1" value="100" oninput="formatInputNumber(this); setStickValue();">%</label>
+										<label>Height: <input type="number" id="customstickh" class="inputnumberbuttonvalue" min="0" max="1000" step="1" value="100" oninput="formatInputNumber(this); setStickValue();">%</label>
+									</fieldset>
+									<fieldset>
+										<legend>Button Config</legend>
+										<label>Total Buttons: <input type="number" id="customtotalbuttons" value="10" step="1" min="0" max="48" class="inputnumber" oninput="formatInputNumber(this); showButtons(this.value);" onchange="showButtons(this.value);"></label>
+										<br>
+										<input type="radio" name="custombuttonset" id="custombuttondefault" class="radiobutton" checked onchange="enableById('custombuttonn', !this.checked); getButtonValue(-1);">
+										<label class="radiolabel" for="custombuttondefault">Default Value</label>
+										<input type="radio" name="custombuttonset" id="custombuttoncheck" class="radiobutton" onchange="enableById('custombuttonn', this.checked); getButtonValue(getValueById('custombuttonn'));">
+										<label class="radiolabel" for="custombuttoncheck">	Button#: <input type="number" id="custombuttonn" value="1" step="1" min="1" max="48" class="inputnumberbutton" disabled oninput="formatInputNumber(this); getButtonValue(this.value);">
+										</label>
+										<br>
+										<fieldset>
+											<legend>Button Released</legend>
+											<label>X: <input type="number" id="custombuttonx" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="" disabled oninput="setButtonValue();" onchange="checkInputNumber2(this); setButtonValue();"></label>
+											<label>Y: <input type="number" id="custombuttony" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="" disabled oninput="setButtonValue();" onchange="checkInputNumber2(this); setButtonValue();"></label>
+											<label>Width: <input type="number" id="custombuttonw" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setButtonValue();"></label>
+											<label>Height: <input type="number" id="custombuttonh" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setButtonValue();"></label>
+											<br>
+											<div class="tooltip"><div id="tooltiptextimagefile" class="tooltiptext tooltiptextimagefile">Image files must be placed under the "layout" folder.</div>
+												<label><span class="buttonimagelabel">Image:</span><span id="inputfilenamepathimg" class="inputfilenamepath">layout/</span><input type="text" id="custombuttonimg" class="inputfilename" spellcheck="false" placeholder="Leave blank to use the default file." onchange="setButtonValue();"></label>
+												<button id="releasedbuttonopenbutton" onclick="getElementById('releasedbuttonopen').click();">Choose File</button>
+												<input type="file" id="releasedbuttonopen" class="hide" accept="image/*" onchange="setValueById('custombuttonimg', this.files[0].name); this.value = ''; setButtonValue();">
+											</div>
+										</fieldset>
+										<fieldset>
+											<legend>Button Pressed</legend>
+											<label>X: <input type="number" id="custombuttonxp" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="" placeholder="default" disabled oninput="setButtonValue();" onchange="checkInputNumber(this); setButtonValue();"></label>
+											<label>Y: <input type="number" id="custombuttonyp" class="inputnumberbuttonvalue" min="-2000" max="2000" step="1" value="" placeholder="default" disabled oninput="setButtonValue();" onchange="checkInputNumber(this); setButtonValue();"></label>
+											<label>Width: <input type="number" id="custombuttonwp" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setButtonValue();"></label>
+											<label>Height: <input type="number" id="custombuttonhp" class="inputnumberbuttonvalue" min="0" max="2000" step="1" placeholder="default" value="" oninput="formatInputNumber(this); setButtonValue();"></label>
+											<br>
+											<div class="tooltip"><div id="tooltiptextimagepfile" class="tooltiptext tooltiptextimagefile">Image files must be placed under the "layout" folder.</div>
+												<label><span class="buttonimagelabel">Image:</span><span id="inputfilenamepathimgp" class="inputfilenamepath">layout/</span><input type="text" id="custombuttonimgp" class="inputfilename" spellcheck="false" placeholder="Leave blank to use the default file." onchange="setButtonValue();"></label>
+												<button id="pressedbuttonopenbutton" onclick="getElementById('pressedbuttonopen').click();">Choose File</button>
+												<input type="file" id="pressedbuttonopen" class="hide" accept="image/*" onchange="setValueById('custombuttonimgp', this.files[0].name); this.value = ''; setButtonValue();">
+											</div>
+										</fieldset>
+									</fieldset>
+								</fieldset>
+							</fieldset>
+						</div>
+					</div>
+
+				</div>
+			</li>
+		</ul>
+		</fieldset>
+
+	</div>
+
+<script id="javascript" src="assets/script.js"></script>
+</body>
+</html>
